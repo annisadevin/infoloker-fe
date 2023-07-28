@@ -1,16 +1,24 @@
-// import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
-// const AllRoute = ({ auth }) => {
-//   return (
-//     <Routes>
-//     </Routes>
-//   );
-// };
+import { connect } from "react-redux";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
-// const mapStateToProps = state => {
-//   return {
-//     auth: state.auth,
-//   };
-// };
+const AllRoute = ({ auth }) => {
+  return (
+    <Routes>
+      <Route
+        path=""
+        element={<Dashboard/>
+        }
+      />
+    </Routes>
+  );
+};
 
-// export default connect(mapStateToProps, {})(AllRoute);
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, {})(AllRoute);

@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <ThemeConfig>
         <Layout>
-          <ToastContainer />
+          <AllRoute />
         </Layout>
       </ThemeConfig>
     </BrowserRouter>
