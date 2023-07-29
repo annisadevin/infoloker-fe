@@ -77,9 +77,13 @@ const Dashboard = ({ logout, auth }) => {
     setIsLogoutModalOpen(false);
   };
 
+  let name = "";
   const localStorageData = localStorage.getItem("infoloker");
-  const parsedData = JSON.parse(localStorageData);
-  const name = parsedData.name;
+  if(localStorageData != null){
+    let parsedData = JSON.parse(localStorageData);
+    name = parsedData.name;
+  }
+
 
   return (
     <div>

@@ -11,7 +11,6 @@ const AllRoute = ({ auth }) => {
       <Route path="" element={<Dashboard />} />
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/register" element={<Register />} />
-
     </Routes>
   );
 };
