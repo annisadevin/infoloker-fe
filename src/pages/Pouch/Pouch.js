@@ -40,10 +40,11 @@ const Pouch = () => {
 
       <Box mx={2} mb={5} sx={{  display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
         {pouches.map( pouch => <CardPouch nama="Retirement Fund" balance="27000" />)} 
+      
+        <Box component="span" className='card-pouch-add' sx={{ border: '1px dashed #8D5795' }}><Button sx={{ width: '100%', color: '#8D5795'}}>+</Button></Box> 
+     
       </Box>
-      <Box>
-        <Box component="span" className='card-pouch-add' sx={{ border: '1px dashed grey' }}><Button>+</Button></Box> 
-      </Box>
+     
     </Box>
     </>
   )

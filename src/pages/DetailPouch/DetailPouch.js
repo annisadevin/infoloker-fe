@@ -20,7 +20,7 @@ import {
   import { useEffect, useState } from "react";
   import { toast } from "react-toastify";
   import { useLocation, useNavigate, Link } from "react-router-dom";
-
+  import Activity from "../../components/Activity/Activity";
   
 const DetailPouch = () => {
   const [progress, setProgress] = useState(0);
@@ -46,16 +46,23 @@ const DetailPouch = () => {
             <Box ml={5}>
                 <Chip
                 label="Fixed Deposit"
-                sx={{ cursor: "pointer", p:2,  margin: "5px 0px 10px 0px", backgroundColor: "#EBA90D" , color: "#FFFFFF"}}
+                sx={{ cursor: "pointer", fontWeight:1000, p:2,  margin: "5px 0px 10px 0px", backgroundColor: "#EBA90D" , color: "#FFFFFF"}}
                 />
-                <Typography component="h2" className="semi-bold">
+                <Typography variant="h2">
                 <b>Retirement Fund</b>
                 </Typography>
             </Box>
         </Box>
-        <Box ml={5} my={3} sx={{  display: 'flex', flexDirection: 'row'}}>
+        <Box ml={5} my={2} sx={{  display: 'flex', flexDirection: 'row'}}>
             <Box sx={{ width: '100%', mr: 1 }}>
-                <LinearProgress variant="determinate" value={progress} />
+                <LinearProgress variant="determinate"  sx={{
+                        backgroundColor: '#B286B8',
+                        '& .MuiLinearProgress-bar': {
+                          backgroundColor: '#EBA90D'
+                        },
+                        borderRadius:'100px',
+                        height: '1rem'
+                    }}value={progress} />
             </Box>
             <Box sx={{ minWidth: 35 }}>
                 <Typography variant="body2"  sx={{color: '#FFFFFF'}}>{`${Math.round(
@@ -68,15 +75,15 @@ const DetailPouch = () => {
         <Box mx={5} pb={4} sx={{  display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
             <Box  >
                 <Typography sx={{fontSize:'12px'}}>Current Balance:</Typography>
-                <Typography>230000</Typography>
+                <Typography><b>Rp 230000</b></Typography>
             </Box>
             <Box pl={4}>
-            <Typography>Goal:</Typography>
-                <Typography>230000</Typography>
+            <Typography sx={{fontSize:'12px'}}>Goal:</Typography>
+                <Typography><b>Rp 230000</b></Typography>
             </Box>
             <Box pl={4}>
-            <Typography>Expected Year:</Typography>
-            <Typography>230000</Typography>
+            <Typography sx={{fontSize:'12px'}}>Expected Year:</Typography>
+            <Typography><b>Rp 230000</b></Typography>
             </Box>
         </Box>
         
@@ -87,6 +94,7 @@ const DetailPouch = () => {
         <Button variant="contained" sx={{ backgroundColor: "#EBA90D", color:"#FFFFFF", margin:'10px', px:'55px'}}><b>Withdraw</b></Button>
       </Box>
      
+       <Activity />
     </Box>
     </>
   )

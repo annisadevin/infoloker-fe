@@ -1,6 +1,6 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { connect } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
 import {
     Box,
@@ -29,15 +29,17 @@ const CardPouch = ({nama, balance }) => {
                 alt="icon"
             />
 
-            <Typography sx={{fontSize: '16px', mt: 3}} component="div">
+            <Typography sx={{fontSize: '17px', mt: 3}} component="div">
                 <b>{nama}</b>
             </Typography>
-            <Typography sx={{fontSize: '16px'}}  color="text.secondary">
+            <Typography sx={{fontSize: '14px'}}  color="text.secondary">
                 Rp {balance}
             </Typography>
         </CardContent>
         <CardActions>
-            <Button  size="small">See Details</Button>
+            <Link to={"/pouch/"+1}>
+                <Button  size="small" >See Details</Button>
+            </Link>
         </CardActions>
     </Card>
   );
