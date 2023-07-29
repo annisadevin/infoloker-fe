@@ -8,6 +8,8 @@ import {
   Typography,
   Box,
   Stack,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -17,6 +19,9 @@ import { toast } from "react-toastify";
 import useInput from "../../hooks/use-input";
 import { login, loadUserInfo, loadUser } from "../../store/actions/action";
 import { connect } from "react-redux";
+import { DatePicker } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -65,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
   },
   whiteHelperText: {
     color: "white",
+    "&.Mui-error": {
+      color: "white", // Override the error color to be white as well
+    },
   },
 }));
 
@@ -73,6 +81,15 @@ const Register = ({ login, auth, loadUserInfo }) => {
   const push = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    value: nikValue,
+    isValid: nikIsValid,
+    hasError: nikHasError,
+    valueChangeHandler: nikChangeHandler,
+    inputBlurHandler: nikBlurHandler,
+    reset: resetNik,
+  } = useInput(isNotEmpty);
 
   const {
     value: usernameValue,
@@ -90,6 +107,42 @@ const Register = ({ login, auth, loadUserInfo }) => {
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
     reset: resetPassword,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: phoneNumberValue,
+    isValid: phoneNumberIsValid,
+    hasError: phoneNumberHasError,
+    valueChangeHandler: phoneNumberChangeHandler,
+    inputBlurHandler: phoneNumberBlurHandler,
+    reset: resetphoneNumber,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: birthDateValue,
+    isValid: birthDateIsValid,
+    hasError: birthDateHasError,
+    valueChangeHandler: birthDateChangeHandler,
+    inputBlurHandler: birthDateBlurHandler,
+    reset: resetbirthDate,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: genderValue,
+    isValid: genderIsValid,
+    hasError: genderHasError,
+    valueChangeHandler: genderChangeHandler,
+    inputBlurHandler: genderBlurHandler,
+    reset: resetGender,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: emailValue,
+    isValid: emailIsValid,
+    hasError: emailHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: genderPassword,
   } = useInput(isNotEmpty);
 
   let isFormValid = false;
@@ -187,17 +240,18 @@ const Register = ({ login, auth, loadUserInfo }) => {
               <b>NIK</b>
             </Typography>
             <TextField
-              value={usernameValue}
-              onChange={usernameChangeHandler}
-              onBlur={usernameBlurHandler}
-              error={usernameHasError}
-              helperText={usernameHasError && "Username tidak boleh kosong"}
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
+              value={nikValue}
+              onChange={nikChangeHandler}
+              onBlur={nikBlurHandler}
+              error={nikHasError}
+              helperText={nikHasError && "NIK cannot be empty"}
               autoComplete="off"
-              name="username"
-              id="filled-basic"
+              name="nik"
+              id="nik"
               variant="filled"
               type="text"
-              placeholder="Username"
+              placeholder="NIK"
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -218,14 +272,15 @@ const Register = ({ login, auth, loadUserInfo }) => {
               <b>Username</b>
             </Typography>
             <TextField
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
               value={usernameValue}
               onChange={usernameChangeHandler}
               onBlur={usernameBlurHandler}
               error={usernameHasError}
-              helperText={usernameHasError && "Username tidak boleh kosong"}
+              helperText={usernameHasError && "Username cannot be empty"}
               autoComplete="off"
               name="username"
-              id="filled-basic"
+              id="username"
               variant="filled"
               type="text"
               placeholder="Username"
@@ -249,11 +304,12 @@ const Register = ({ login, auth, loadUserInfo }) => {
               <b>Password</b>
             </Typography>
             <TextField
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
               value={passwordValue}
               onChange={passwordChangeHandler}
               onBlur={passwordBlurHandler}
               error={passwordHasError}
-              helperText={passwordHasError && "Password tidak boleh kosong"}
+              helperText={passwordHasError && "Password cannot be empty"}
               autoComplete="off"
               name="password"
               id="filled-basic"
@@ -302,17 +358,18 @@ const Register = ({ login, auth, loadUserInfo }) => {
               <b>Phone Number</b>
             </Typography>
             <TextField
-              value={usernameValue}
-              onChange={usernameChangeHandler}
-              onBlur={usernameBlurHandler}
-              error={usernameHasError}
-              helperText={usernameHasError && "Username tidak boleh kosong"}
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
+              value={phoneNumberValue}
+              onChange={phoneNumberChangeHandler}
+              onBlur={phoneNumberBlurHandler}
+              error={phoneNumberHasError}
+              helperText={phoneNumberHasError && "Phone number cannot be empty"}
               autoComplete="off"
-              name="username"
+              name="phone number"
               id="filled-basic"
               variant="filled"
               type="text"
-              placeholder="Username"
+              placeholder="Phone Number"
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -333,17 +390,18 @@ const Register = ({ login, auth, loadUserInfo }) => {
               <b>Birth Date</b>
             </Typography>
             <TextField
-              value={usernameValue}
-              onChange={usernameChangeHandler}
-              onBlur={usernameBlurHandler}
-              error={usernameHasError}
-              helperText={usernameHasError && "Username tidak boleh kosong"}
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
+              value={birthDateValue}
+              onChange={birthDateChangeHandler}
+              onBlur={birthDateBlurHandler}
+              error={birthDateHasError}
+              helperText={birthDateHasError && "Birth date cannot be empty"}
               autoComplete="off"
-              name="username"
+              name="birth date"
               id="filled-basic"
               variant="filled"
               type="text"
-              placeholder="Username"
+              placeholder="Birth Date"
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -363,49 +421,57 @@ const Register = ({ login, auth, loadUserInfo }) => {
             <Typography variant="body2" style={{ textAlign: "left" }}>
               <b>Gender</b>
             </Typography>
-            <TextField
-              value={usernameValue}
-              onChange={usernameChangeHandler}
-              onBlur={usernameBlurHandler}
-              error={usernameHasError}
-              helperText={usernameHasError && "Username tidak boleh kosong"}
-              autoComplete="off"
-              name="username"
-              id="filled-basic"
+            <Select
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
+              value={genderValue}
+              onChange={genderChangeHandler}
+              onBlur={genderBlurHandler}
+              error={genderHasError}
+              helperText={genderHasError && "Gender cannot be empty"}
+              fullWidth
               variant="filled"
-              type="text"
-              placeholder="Username"
-              InputProps={{
-                disableUnderline: true,
-                sx: {
-                  width: "25rem",
-                  borderRadius: "10px",
+              disableUnderline
+              sx={{
+                width: "25rem",
+                borderRadius: "10px",
+                backgroundColor: "white",
+                textAlign: "left",
+                "& .MuiFilledInput-input": {
+                  paddingTop: "15px",
+                  paddingBottom: "15px",
                   backgroundColor: "white",
-                  "& .MuiFilledInput-input": {
-                    paddingTop: "15px",
-                    paddingBottom: "15px",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    fontSize: "15px",
-                  },
+                  borderRadius: "10px",
+                  fontSize: "15px",
+                },
+                "& .MuiFilledInput-input:hover": {
+                  paddingTop: "15px",
+                  paddingBottom: "15px",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  fontSize: "15px",
                 },
               }}
-            />
+            >
+              <MenuItem value="0">Male</MenuItem>
+              <MenuItem value="1">Female</MenuItem>
+            </Select>
+
             <Typography variant="body2" style={{ textAlign: "left" }}>
               <b>Email</b>
             </Typography>
             <TextField
-              value={usernameValue}
-              onChange={usernameChangeHandler}
-              onBlur={usernameBlurHandler}
-              error={usernameHasError}
-              helperText={usernameHasError && "Username tidak boleh kosong"}
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
+              value={emailValue}
+              onChange={emailChangeHandler}
+              onBlur={emailBlurHandler}
+              error={emailHasError}
+              helperText={emailHasError && "Email cannot be empty"}
               autoComplete="off"
-              name="username"
+              name="email"
               id="filled-basic"
               variant="filled"
               type="text"
-              placeholder="Username"
+              placeholder="Email"
               InputProps={{
                 disableUnderline: true,
                 sx: {

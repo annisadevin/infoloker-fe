@@ -65,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
   },
   whiteHelperText: {
     color: "white",
+    "&.Mui-error": {
+      color: "white", // Override the error color to be white as well
+    },
   },
 }));
 
@@ -98,15 +101,15 @@ const Login = ({ login, auth, loadUserInfo }) => {
     isFormValid = true;
   }
 
-  async function getUserBalance(){
+  async function getUserBalance() {
     const { data, status } = await client.post("/bankAccount/info/all", {});
-    if(status === 200){
+    if (status === 200) {
       const dataParsed = JSON.parse(JSON.stringify(data.data));
       const totalBalance = dataParsed.accounts.reduce((total, account) => {
         return total + account.balance;
       }, 0);
       return totalBalance;
-    }else{
+    } else {
       return 0;
     }
   }
@@ -121,7 +124,7 @@ const Login = ({ login, auth, loadUserInfo }) => {
       const user = {
         birthDate: data.data.birthDate,
         name: data.data.username,
-        balance: balance
+        balance: balance,
       };
       loadUserInfo(user);
       push("/");
@@ -187,11 +190,12 @@ const Login = ({ login, auth, loadUserInfo }) => {
           </Typography>
           <div style={{ marginBottom: "20px" }}>
             <TextField
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
               value={usernameValue}
               onChange={usernameChangeHandler}
               onBlur={usernameBlurHandler}
               error={usernameHasError}
-              helperText={usernameHasError && "Username tidak boleh kosong"}
+              helperText={usernameHasError && "Username cannot be empty"}
               autoComplete="off"
               name="username"
               id="filled-basic"
@@ -220,11 +224,12 @@ const Login = ({ login, auth, loadUserInfo }) => {
           </Typography>
           <div style={{ marginBottom: "30px" }}>
             <TextField
+              FormHelperTextProps={{ className: classes.whiteHelperText }} // Add this line
               value={passwordValue}
               onChange={passwordChangeHandler}
               onBlur={passwordBlurHandler}
               error={passwordHasError}
-              helperText={passwordHasError && "Password tidak boleh kosong"}
+              helperText={passwordHasError && "Password cannot be empty"}
               autoComplete="off"
               name="password"
               id="filled-basic"

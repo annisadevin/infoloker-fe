@@ -12,9 +12,13 @@ const Layout = ({ children, auth }) => {
   const path = url.split("/");
 
   useEffect(() => {
+    console.log("bru");
+
     if (!auth.isLoggedIn) {
+      console.log("1");
       push("/auth/login");
     } else if (auth.isLoggedIn && path[1] === "auth") {
+      console.log(2);
       push("/");
     }
   }, []);
