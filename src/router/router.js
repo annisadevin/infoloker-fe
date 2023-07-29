@@ -5,6 +5,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import QuizLanding from "../pages/Quiz/QuizLanding";
 import Quiz from "../pages/Quiz/Quiz";
 import Recommendations from "../pages/Recommendation/Recommendation";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
 
 const AllRoute = ({ auth }) => {
   return (
@@ -29,11 +31,15 @@ const AllRoute = ({ auth }) => {
         element={<Recommendations/>
         }
       />
+      <Route path="" element={<Dashboard />} />
+      <Route path="/auth/login" element={<Login />} />
+      <Route path="/auth/register" element={<Register />} />
+
     </Routes>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.auth,
   };

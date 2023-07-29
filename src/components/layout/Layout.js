@@ -11,13 +11,13 @@ const Layout = ({ children, auth }) => {
   const url = useLocation().pathname;
   const path = url.split("/");
 
-  // useEffect(() => {
-  //   if (!auth.isLoggedIn) {
-  //     push("/auth/login");
-  //   } else if (auth.isLoggedIn && path[1] === "auth") {
-  //     push("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      push("/auth/login");
+    } else if (auth.isLoggedIn && path[1] === "auth") {
+      push("/");
+    }
+  }, []);
 
   return (
     <>
@@ -30,7 +30,7 @@ const Layout = ({ children, auth }) => {
           paddingRight: "0 !important",
         }}
       >
-        <Box sx={{ minHeight: "90vh", backgroundColor: "#FFFFFF" }}>
+        <Box sx={{ minHeight: "90vh", backgroundColor: "#F7FAFC" }}>
           {children}
         </Box>
         {path[1] !== "quizLanding" &&

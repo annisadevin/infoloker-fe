@@ -5,8 +5,9 @@ import { LOGIN, LOGOUT, LOAD_USER, LOAD_USER_INFO } from "../actions/type";
 
 const initialState = {
   token: "",
-  role: "",
-  phone: "",
+  name: "",
+  birthDate: "",
+  balance: "",
   isLoggedIn: false,
 };
 
@@ -23,15 +24,17 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     case LOAD_USER_INFO:
-      state.role = action.user.role;
-      state.phone = action.user.phone;
-      localStorage.setItem("clotht", JSON.stringify(state));
+      state.name = action.user.name;
+      state.birthDate = action.user.birthDate;
+      state.balance = action.user.balance;
+      localStorage.setItem("infoloker", JSON.stringify(state));
+      console.log(localStorage.getItem("infoloker"));
       return {
         ...state,
       };
     case LOGIN:
       state.token = action.user.token;
-      localStorage.setItem("clotht", JSON.stringify(action.user));
+      localStorage.setItem("infoloker", JSON.stringify(action.user));
       state.isLoggedIn = true;
       // state.token = action.user.token;
       // localStorage.setItem("clotht", JSON.stringify(action.user));
@@ -56,8 +59,7 @@ const authReducer = (state = initialState, action) => {
     case LOGOUT:
       state.token = "";
       state.isLoggedIn = false;
-      state.role = "";
-      localStorage.removeItem("clotht");
+      localStorage.removeItem("infoloker");
       return {
         ...state,
       };

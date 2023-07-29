@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store/index";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import "@fontsource/poppins"; // Import the "Poppins" font
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

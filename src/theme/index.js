@@ -21,6 +21,9 @@ export default function ThemeConfig({ children }) {
     () => ({
       breakpoints,
       spacing: [0, 4, 8, 16, 24, 48, 96],
+      typography: {
+        fontFamily: "Poppins, Arial, sans-serif",
+      },
     }),
     []
   );
