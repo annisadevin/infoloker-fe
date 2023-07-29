@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
 import Pouch from "../pages/Pouch/Pouch";
+import DetailPouch from "../pages/DetailPouch/DetailPouch";
 
 const AllRoute = ({ auth }) => {
   return (
@@ -11,9 +12,8 @@ const AllRoute = ({ auth }) => {
     <Routes>
       <Route path="" element={<Dashboard />} />
       <Route path="/auth/login" element={<Login />} />
-    </Routes>
-    <Routes>
       <Route path="/pouch" element={<Pouch/>}/>
+      <Route path={"/pouch/:pk"} element={<DetailPouch/>}/>
     </Routes>
     </>
   );

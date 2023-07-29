@@ -29,15 +29,15 @@ const CardPouch = ({nama, balance }) => {
                 alt="icon"
             />
 
-            <Typography variant="h5" component="div">
-                {nama}
+            <Typography sx={{fontSize: '16px', mt: 3}} component="div">
+                <b>{nama}</b>
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography sx={{fontSize: '16px'}}  color="text.secondary">
                 Rp {balance}
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small">See Details</Button>
+            <Button  size="small">See Details</Button>
         </CardActions>
     </Card>
   );
