@@ -6,12 +6,59 @@ import {
     Typography,
   } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../components/layout/Navbar";
 import RecommendationCard from "../../components/RecommendationCard/RecommendationCard";
+import { useState } from "react";
 
 const Recommendations = () => {
     const push = useNavigate();
+    const { state } = useLocation();
+    const [formData, setFormData] = useState({});
+    const [selectedTujuan, selectTujuan] = useState({});
+
+    const handleGoal = e => {
+        var index = parseInt(e.target.name);
+        if (formData[index] == undefined){
+            formData[index] = {
+                'Tujuan': '',
+                'Instrumen': '',
+                'Goal': e.target.value
+            }
+        } else {
+            formData[index]['Goal'] = e.target.value;
+        }
+        setFormData(formData);
+        console.log(formData);
+    }
+
+    const handleTujuan = index => {
+        // selectTujuan(...selectedTujuan, index);
+        // if (formData[index] == undefined){
+        //     formData[index] = {
+        //         'Tujuan': state?.recommendations?[index]['Tujuan'],
+        //         'Instrumen': [],
+        //         'Goal': ''
+        //     }
+        // } else {
+        //     formData[index]['Tujuan'] = state?.recommendations?[index]['Tujuan'];
+        // }
+        // setFormData(formData);
+    }
+
+    const handleInstrumen = (indexRec, indexIns) => {
+        // if (formData[indexRec] == undefined){
+        //     formData[indexRec] = {
+        //         'Tujuan': "",
+        //         'Instrumen': [state?.recommendations?[indexRec]['Instrumen'][indexIns]],
+        //         'Goal': ''
+        //     }
+        // } else {
+        //     formData[indexRec]['Instrumen'].append(state?.recommendations?[indexRec]['Instrumen'][indexIns]);
+        // }
+        // setFormData(formData);
+    }
+
 
     return (
     <Box component="main" sx={{ minHeight: "90vh" }}>
@@ -44,7 +91,7 @@ const Recommendations = () => {
                         textAlign="center"
                         color="#FFFFFF"
                     >
-                        Rp 50,000,000
+                        Rp { state?.income }
                     </Typography>
                 </Box>
                 <Typography
@@ -72,7 +119,7 @@ const Recommendations = () => {
                         textAlign="center"
                         color="#FFFFFF"
                     >
-                        Rp 32,500,000
+                        Rp { 0.51 * state?.income }
                     </Typography>
                     <Typography
                         component="h1"
@@ -93,8 +140,11 @@ const Recommendations = () => {
                 >
                     Savings Recommendation
                 </Typography>
-                <RecommendationCard></RecommendationCard>
-                <RecommendationCard></RecommendationCard>
+                {state?.recommendations?.map((rec,index) => {
+                    return (
+                        <RecommendationCard recommendation={rec} index={index} handleGoal={handleGoal} handleTujuan={handleTujuan} handleInstrumen={handleInstrumen}/>
+                    );
+                })}
                 <Button
                     size="big"
                     variant="contained"

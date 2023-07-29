@@ -10,8 +10,9 @@ import Navbar from "../../components/layout/Navbar";
 import { useState } from "react";
 import CardIncome from "../../components/QuizCard/CardIncome";
 import CardChoice from "../../components/QuizCard/CardChoice";
+import { connect } from "react-redux";
 
-const Quiz = () => {
+const Quiz = ({ auth }) => {
     const push = useNavigate();
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
@@ -30,11 +31,32 @@ const Quiz = () => {
     } = formData;
 
     const prevStep = () => {
-        setStep(step-1);
+        switch (step) {
+            case 4:
+              if (marriageStatus == "No"){
+                setStep(step-2);
+              } else {
+                setStep(step-1);
+              }
+            break;
+            default:
+                setStep(step-1);
+
+        }
     }
 
     const nextStep = () => {
-        setStep(step+1);
+        switch (step) {
+            case 2:
+              if (marriageStatus == "No"){
+                setStep(step+2);
+              } else {
+                setStep(step+1);
+              }
+            break;
+            default:
+                setStep(step+1);
+        }
     }
 
     const handleChange = e => {
@@ -51,7 +73,11 @@ const Quiz = () => {
 
     const handleSubmit = () => {
         console.log(formData);
-        push("/recommendations");
+        var financialRecommendations = {'recommendations':generateRecommendations()};
+        financialRecommendations['income'] = income;
+        console.log("SINI");
+        console.log(financialRecommendations);
+        push('/recommendations',{state:financialRecommendations});
         // handleOpen();
         // return (
         //     <Modal
@@ -71,6 +97,10 @@ const Quiz = () => {
         //     </Modal>
         // );
     }
+
+    // const generateRecommendations = () => {
+
+    // }
 
     const renderSwitch = step => {
         switch (step) {
@@ -125,12 +155,474 @@ const Quiz = () => {
                       nextText="Finished"
                   />
                 )
-            default:
                // do nothing
         }
     }
 
-    console.log(formData);
+    const generateRecommendations = () => {
+        var birthDate = convertStringToDate(auth.birthDate);
+        var age = getAge(birthDate);
+        console.log(age);
+        if (age >= 18 && age <= 29) {
+            if (marriageStatus == "Yes") {
+                if (hasChildren == "Yes"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Child Education Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            }
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Child Education Fund",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            }
+                        ]);
+                    }
+                } else if (hasChildren == "No"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                        ]);
+                    }
+                }
+            } else if (marriageStatus == "No"){
+                if (financialRisk == "Yes"){
+                    return ([
+                        {
+                            "Tujuan": "House Saving",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Wedding Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        }
+                    ]);
+                } else if (financialRisk == "No"){
+                    return ([
+                        {
+                            "Tujuan": "House Saving",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Savings", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Wedding Fund",
+                            "Instrumen" : ["Savings", "Gold Investment"]
+                        }
+                    ]);
+                }
+            }
+        } else if (age >= 30 && age <= 39) {
+            if (marriageStatus == "Yes") {
+                if (hasChildren == "Yes"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Child Education Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            }
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Child Education Fund",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            }
+                        ]);
+                    }
+                } else if (hasChildren == "No"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            }
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "House Saving",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            }
+                        ]);
+                    }
+                }
+            } else if (marriageStatus == "No"){
+                if (financialRisk == "Yes"){
+                    return ([
+                        {
+                            "Tujuan": "Retirement Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Hajj Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "House Saving",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Wedding Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        }
+                    ]);
+                } else if (financialRisk == "No"){
+                    return ([
+                        {
+                            "Tujuan": "Retirement Fund",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Hajj Fund",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "House Saving",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Savings", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Wedding Fund",
+                            "Instrumen" : ["Savings", "Gold Investment"]
+                        }
+                    ]);
+                }
+            }
+        } else if (age >= 40 && age <= 49) {
+            if (marriageStatus == "Yes") {
+                if (hasChildren == "Yes"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Child Education Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Child Education Fund",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                        ]);
+                    }
+                } else if (hasChildren == "No"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                        ]);
+                    }
+                }
+            } else if (marriageStatus == "No"){
+                if (financialRisk == "Yes"){
+                    return ([
+                        {
+                            "Tujuan": "Retirement Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Hajj Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                    ]);
+                } else if (financialRisk == "No"){
+                    return ([
+                        {
+                            "Tujuan": "Retirement Fund",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Hajj Fund",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Savings", "Gold Investment"]
+                        },
+                    ]);
+                }
+            }
+        } else if (age >= 50 && age <= 59) {
+            if (marriageStatus == "Yes") {
+                if (hasChildren == "Yes"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                        ]);
+                    }
+                } else if (hasChildren == "No"){
+                    if (financialRisk == "Yes"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Stock", "Mutual Funds"]
+                            },
+                        ]);
+                    } else if (financialRisk == "No"){
+                        return ([
+                            {
+                                "Tujuan": "Retirement Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Hajj Fund",
+                                "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                            },
+                            {
+                                "Tujuan": "Self Reward",
+                                "Instrumen" : ["Savings", "Gold Investment"]
+                            },
+                        ]);
+                    }
+                }
+            } else if (marriageStatus == "No"){
+                if (financialRisk == "Yes"){
+                    return ([
+                        {
+                            "Tujuan": "Retirement Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Hajj Fund",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Stock", "Mutual Funds"]
+                        },
+                    ]);
+                } else if (financialRisk == "No"){
+                    return ([
+                        {
+                            "Tujuan": "Retirement Fund",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Hajj Fund",
+                            "Instrumen" : ["Savings", "Fixed Deposit", "Gold Investment"]
+                        },
+                        {
+                            "Tujuan": "Self Reward",
+                            "Instrumen" : ["Savings", "Gold Investment"]
+                        },
+                    ]);
+                }
+            }
+        }
+    }
+
+    const convertStringToDate = (birthDate) => {
+        var birthDate = birthDate.substring(0,2) + "-" + birthDate.substring(2,4) + "-" + birthDate.substring(4,birthDate.length)
+        birthDate = new Date(birthDate);
+        return birthDate;
+    }
+
+    const getAge = (birthDate) => {
+        var today = new Date();
+        var age_now = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+        {
+            age_now--;
+        }
+        return age_now;
+    }
+
     return (
     <Box component="main" sx={{ minHeight: "90vh", backgroundColor: "#8D5795" }}>
         <Navbar judul={"Plan Your Financial"} warna="#FFFFFF" warnaText="black"/>
@@ -182,4 +674,10 @@ const Quiz = () => {
     );
 };
 
-export default Quiz;
+const mapStateToProps = (state) => {
+    return {
+      auth: state.auth,
+    };
+  };
+
+export default connect(mapStateToProps)(Quiz);

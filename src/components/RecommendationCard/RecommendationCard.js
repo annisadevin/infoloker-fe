@@ -7,7 +7,19 @@ import {
         Avatar
     } from "@mui/material";
 
-const RecommendationCard = () => {
+const RecommendationCard = ({ recommendation, index, handleGoal }) => {
+    const getTujuan = () => {
+        if (recommendation != null){
+            return recommendation['Tujuan'];
+        }
+    }
+
+    const getListInstrumen = () => {
+        if (recommendation != null){
+            return recommendation['Instrumen'];
+        }
+    }
+
     return(
         <Box
             mt={2}
@@ -40,51 +52,35 @@ const RecommendationCard = () => {
                         variant="body1"
                         className="semi-bold"
                     >
-                        Retirement Fund
+                        { getTujuan() }
                     </Typography>
                     <Box
                         display="flex"
                     >
-                        <Button
-                            sx = {{
-                                fontSize: "12px",
-                                borderRadius: "20px",
-                                border: "1px solid #8D5795",
-                                textAlign: "center",
-                                color: "#8D5795",
-                                padding: "0.2rem 0.5rem 0.2rem 0.5rem",
-                                marginRight: "0.2rem"
-                            }}
-                        >
-                            <Typography
-                                sx = {{
-                                    fontSize: "12px",
-                                }}
-                                variant="body1"
-                            >
-                                Fixed Deposit
-                            </Typography>
-                        </Button>
-                        <Button
-                            sx = {{
-                                fontSize: "12px",
-                                borderRadius: "20px",
-                                border: "1px solid #8D5795",
-                                textAlign: "center",
-                                color: "#8D5795",
-                                padding: "0 0.5rem 0 0.5rem",
-                                marginRight: "0.2rem"
-                            }}
-                        >
-                            <Typography
-                                sx = {{
-                                    fontSize: "12px",
-                                }}
-                                variant="body1"
-                            >
-                                Gold
-                            </Typography>
-                        </Button>
+                        {getListInstrumen()?.map(ins => {
+                            return (
+                                <Button
+                                    sx = {{
+                                        fontSize: "12px",
+                                        borderRadius: "20px",
+                                        border: "1px solid #8D5795",
+                                        textAlign: "center",
+                                        color: "#8D5795",
+                                        padding: "0.2rem 0.5rem 0.2rem 0.5rem",
+                                        marginRight: "0.2rem"
+                                    }}
+                                >
+                                    <Typography
+                                        sx = {{
+                                            fontSize: "12px",
+                                        }}
+                                        variant="body1"
+                                    >
+                                        { ins }
+                                    </Typography>
+                                </Button>
+                            );
+                        })}
                     </Box>
                 </Box>
             </Box>
@@ -101,12 +97,13 @@ const RecommendationCard = () => {
                     Goal:
                 </Typography>
                 <TextField
-                    name="income"
+                    name={index}
                     id="filled-basic"
                     variant="filled"
                     size="small"
-                    type="text"
+                    type="number"
                     placeholder="Rp"
+                    onChange={e => handleGoal(e)}
                     InputProps={{
                         disableUnderline: true,
                         sx: {

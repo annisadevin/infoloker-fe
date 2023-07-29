@@ -57,7 +57,7 @@ const CardIncome = ({ nextStep, handleChange, prevStep }) => {
                         id="filled-basic"
                         variant="filled"
                         size="small"
-                        type="text"
+                        type="number"
                         placeholder="Rp"
                         onChange={e => handleChange(e)}
                         InputProps={{
