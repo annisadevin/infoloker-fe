@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     marginTop: theme.spacing(3),
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-    transition: "transform 0.3s ease", // Add transition property for smooth effect
+    transition: "transform 0.3s ease",
     "&:hover": {
-      transform: "scale(1.02)", // Scale up by 5% on hover
+      transform: "scale(1.02)",
     },
   },
   quizContainer: {
