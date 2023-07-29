@@ -21,12 +21,46 @@ a {
   text-decoration: none;
 }
 .banner{
-  background-color: #26BAEE;
+  background-color: black;
   max-height: 10rem;
-  color: white;
+  color: black;
   padding: 2rem 2rem 3rem 2rem;
 }
 
 .gradient-bg {
   background: linear-gradient(to bottom, #26BAEE 30vh, white 0%); 
+}
+
+h2{
+  font-size: 22px !important;
+}
+
+h3{
+  font-size: 20px !important;
+}
+
+h4{
+  font-size: 15px !important;
+}
+
+.extra-bold{
+  font-weight: 800;
+}
+
+.text-bold{
+  font-weight: 700;
+}
+
+.semi-bold{
+  font-weight: 600;
+}
+
+.black{
+  font-weight: 9000;
+}
+
+.row-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

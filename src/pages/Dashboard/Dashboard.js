@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { client } from "../../lib/client";
 import {
   Box,
   Typography,
@@ -23,10 +22,11 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     display: "flex",
     alignItems: "flex-end",
+    marginBottom: "10px"
   },
   profilePicture: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: "50%",
   },
   profilePictureContainer: {
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2),
   },
   iconSize: {
-    fontSize: 35,
+    fontSize: 28,
   },
 }));
 
@@ -71,10 +71,10 @@ const Dashboard = () => {
           />
         </Box>
         <div className={classes.textContainer}>
-          <Typography variant="h5" className="extra-bold">
+          <Typography variant="h6" className="extra-bold">
             <b>Hi, Lou</b>
           </Typography>
-          <Typography variant="h6" className="semi-bold">
+          <Typography variant="subtitle1" className="semi-bold">
             <span className={classes.blueRoundedText}>Welcome Back!</span>
           </Typography>
         </div>

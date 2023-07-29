@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     marginTop: theme.spacing(3),
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    transition: "transform 0.3s ease", // Add transition property for smooth effect
+    "&:hover": {
+      transform: "scale(1.02)", // Scale up by 5% on hover
+    },
   },
   quizContainer: {
     color: "black",
@@ -21,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "2px 4px 10px rgba(0, 0, 0, 0.1)",
     display: "flex",
     alignItems: "center",
+    transition: "transform 0.3s ease", // Add transition property for smooth effect
+    "&:hover": {
+      transform: "scale(1.02)", // Scale up by 5% on hover
+    },
   },
   transparentText: {
     marginBottom: "8px",
@@ -30,9 +38,8 @@ const useStyles = makeStyles((theme) => ({
   currBalance: {
     marginLeft: "20px",
     marginRight: "20px",
-    marginTop: "30px",
+    marginTop: "10px",
   },
-
   quizImage: {
     marginRight: "10px",
     flexShrink: 0,
@@ -47,13 +54,13 @@ const CurrentBalance = () => {
     <div>
       <Box className={classes.currBalance}>
         <Container maxWidth="sm" className={classes.cardContainer}>
-          <Typography variant="body1" className={classes.transparentText}>
+          <Typography variant="body2" className={classes.transparentText}>
             Current Balance
           </Typography>
-          <Typography variant="h4" style={{ marginBottom: "12px" }}>
+          <Typography variant="h5" style={{ marginBottom: "8px" }}>
             <b>Rp 50,000,000</b>
           </Typography>
-          <Typography variant="subtitle2" style={{ marginBottom: "8px" }}>
+          <Typography variant="body1" style={{ marginBottom: "5px" }}>
             <b>See details</b>
           </Typography>
         </Container>
@@ -61,11 +68,11 @@ const CurrentBalance = () => {
       <Box className={classes.currBalance}>
         <Container maxWidth="sm" className={classes.quizContainer}>
           <div>
-            <Typography variant="h6" style={{ marginBottom: "8px", marginTop: "8px" }}>
+            <Typography variant="subtitle1" style={{ marginBottom: "8px", marginTop: "8px" }}>
               <b>Plan Your Financial!</b>
             </Typography>
             <Typography
-              variant="subtitle2"
+              variant="body2"
               style={{ marginBottom: "8px", marginTop: "8px", color: "#818181" }}
             >
               Start the quiz, get the financial planning recommendations.
