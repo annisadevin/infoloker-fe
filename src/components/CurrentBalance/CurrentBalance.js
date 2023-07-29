@@ -77,29 +77,33 @@ const CurrentBalance = () => {
           </Typography>
         </Container>
       </Box>
-      <Box className={classes.currBalance}>
-        <Container maxWidth="sm" className={classes.quizContainer}>
-          <div>
-            <Typography
-              variant="subtitle1"
-              style={{ marginBottom: "8px", marginTop: "8px" }}
-            >
-              <b>Plan Your Financial!</b>
-            </Typography>
-            <Typography
-              variant="body2"
-              style={{
-                marginBottom: "8px",
-                marginTop: "8px",
-                color: "#818181",
-              }}
-            >
-              Start the quiz, get the financial planning recommendations.
-            </Typography>
-          </div>
-          <img src={MoneyBag} alt="Money Bag" className={classes.quizImage} />
-        </Container>
-      </Box>
+      <Link
+        to={"/quizLanding"}
+      >
+        <Box className={classes.currBalance}>
+          <Container maxWidth="sm" className={classes.quizContainer}>
+            <div>
+              <Typography
+                variant="subtitle1"
+                style={{ marginBottom: "8px", marginTop: "8px" }}
+              >
+                <b>Plan Your Financial!</b>
+              </Typography>
+              <Typography
+                variant="body2"
+                style={{
+                  marginBottom: "8px",
+                  marginTop: "8px",
+                  color: "#818181",
+                }}
+              >
+                Start the quiz, get the financial planning recommendations.
+              </Typography>
+            </div>
+            <img src={MoneyBag} alt="Money Bag" className={classes.quizImage} />
+          </Container>
+        </Box>
+      </Link>
     </div>
   );
 };

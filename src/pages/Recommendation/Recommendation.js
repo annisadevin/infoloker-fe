@@ -183,6 +183,7 @@ const Recommendations = () => {
                             backgroundColor: "#EBA90D",
                         }
                     }}
+                    onClick={()=>push("/pouch")}
                 >
                     Submit
                 </Button>

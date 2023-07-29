@@ -1,0 +1,12 @@
+.balance {
+    margin: 2rem 1.5rem 2rem 1.5rem;
+    padding: 1rem 1rem 1rem 1rem;
+    background-color: #EBA90D;
+    border-radius: 1rem;
+    color: #FFFFFF;
+}
+
+.text-balance {
+ 
+    font-size: 19px;
+}

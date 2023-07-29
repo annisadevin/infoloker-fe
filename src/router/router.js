@@ -7,9 +7,12 @@ import Quiz from "../pages/Quiz/Quiz";
 import Recommendations from "../pages/Recommendation/Recommendation";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import Pouch from "../pages/Pouch/Pouch";
+import DetailPouch from "../pages/DetailPouch/DetailPouch";
 
 const AllRoute = ({ auth }) => {
   return (
+    <>
     <Routes>
       <Route
         path=""
@@ -34,7 +37,10 @@ const AllRoute = ({ auth }) => {
       <Route path="" element={<Dashboard />} />
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/register" element={<Register />} />
+      <Route path="/pouch" element={<Pouch/>}/>
+      <Route path={"/pouch/:pk"} element={<DetailPouch/>}/>
     </Routes>
+    </>
   );
 };
 
