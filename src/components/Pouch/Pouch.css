@@ -1,0 +1,9 @@
+.pouch-icon {
+    width: 40%;
+}
+
+.card-pouch{
+    flex: 1 1 40%;
+    margin: 1rem 2rem 4rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
+}
