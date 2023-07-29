@@ -1,16 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
   Container,
   IconButton,
   CardMedia,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Profpic from "./profpic.png";
 import { Notifications, ExitToApp } from "@mui/icons-material";
 import CurrentBalance from "../../components/CurrentBalance/CurrentBalance";
 import Activity from "../../components/Activity/Activity";
+import { connect } from "react-redux";
+import { logout } from "../../store/actions/action";
+import { Link, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   banner: {
@@ -22,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     display: "flex",
     alignItems: "flex-end",
-    marginBottom: "10px"
+    marginBottom: "10px",
   },
   profilePicture: {
     width: 40,
@@ -50,17 +59,34 @@ const useStyles = makeStyles((theme) => ({
   iconSize: {
     fontSize: 28,
   },
+  customButton: {
+    textTransform: "none",
+  },
 }));
 
-const Dashboard = () => {
+const Dashboard = ({ logout, auth }) => {
   const classes = useStyles();
+  const push = useNavigate();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleOpenLogoutModal = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleCloseLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+  };
+
+  const localStorageData = localStorage.getItem("infoloker");
+  const parsedData = JSON.parse(localStorageData);
+  const name = parsedData.name;
 
   return (
     <div>
       <Container fixed className={classes.banner} style={{ height: "140px" }}>
         <Box className={classes.notificationContainer}>
           <IconButton color="inherit" aria-label="notification">
-            <Notifications className={classes.iconSize}/>
+            <Notifications className={classes.iconSize} />
           </IconButton>
         </Box>
         <Box className={classes.profilePictureContainer}>
@@ -72,9 +98,9 @@ const Dashboard = () => {
         </Box>
         <div className={classes.textContainer}>
           <Typography variant="h6" className="extra-bold">
-            <b>Hi, Lou</b>
+            <b>Hi, {name}</b>
           </Typography>
-          <Typography variant="subtitle1" className="semi-bold">
+          <Typography variant="subtitle1">
             <span className={classes.blueRoundedText}>Welcome Back!</span>
           </Typography>
         </div>
@@ -82,9 +108,42 @@ const Dashboard = () => {
           color="inherit"
           aria-label="logout"
           className={classes.logoutButton}
+          onClick={handleOpenLogoutModal}
         >
           <ExitToApp className={classes.iconSize} />
         </IconButton>
+        <Dialog open={isLogoutModalOpen} onClose={handleCloseLogoutModal}>
+          <DialogTitle>
+            <b>Logout</b>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <Typography variant="body2" style={{color: "#818181"}}>
+                Are you sure you want to logout?
+              </Typography>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleCloseLogoutModal}
+              color="primary"
+              className={classes.customButton}
+              style={{ color: "#818181" }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                logout();
+                push("/auth/login");
+              }}
+              style={{ color: "#8D5795" }}
+              className={classes.customButton}
+            >
+              <b>Logout</b>
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
       <CurrentBalance />
       <Activity />
@@ -92,4 +151,10 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, { logout })(Dashboard);

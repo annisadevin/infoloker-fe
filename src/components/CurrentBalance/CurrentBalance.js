@@ -49,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
 
 const CurrentBalance = () => {
   const classes = useStyles();
+  const localStorageData = localStorage.getItem("infoloker");
+  const parsedData = JSON.parse(localStorageData);
+
+  const numberWithCommas = (number) => {
+    return number.toLocaleString(); // Use default locale for formatting
+  };
+
+  const balance = numberWithCommas(parsedData.balance);
 
   return (
     <div>
@@ -58,7 +66,7 @@ const CurrentBalance = () => {
             Current Balance
           </Typography>
           <Typography variant="h5" style={{ marginBottom: "8px" }}>
-            <b>Rp 50,000,000</b>
+            <b>Rp {balance}</b>
           </Typography>
           <Typography variant="body1" style={{ marginBottom: "5px" }}>
             <b>See details</b>

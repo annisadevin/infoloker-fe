@@ -9,13 +9,13 @@ const Layout = ({ children, auth }) => {
   const url = useLocation().pathname;
   const path = url.split("/");
 
-  // useEffect(() => {
-  //   if (!auth.isLoggedIn) {
-  //     push("/auth/login");
-  //   } else if (auth.isLoggedIn && path[1] === "auth") {
-  //     push("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      push("/auth/login");
+    } else if (auth.isLoggedIn && path[1] === "auth") {
+      push("/");
+    }
+  }, []);
 
   return (
     <>
