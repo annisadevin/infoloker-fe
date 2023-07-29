@@ -28,7 +28,7 @@ const Layout = ({ children, auth }) => {
           paddingRight: "0 !important",
         }}
       >
-        <Box sx={{ minHeight: "90vh", backgroundColor: "#FFFFFF" }}>
+        <Box sx={{ minHeight: "90vh", backgroundColor: "#F7FAFC" }}>
           {children}
         </Box>
         {path[1] !== "on-boarding" &&

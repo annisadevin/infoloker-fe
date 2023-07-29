@@ -1,12 +1,12 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-export const bashUrl = "https://sanatech.pythonanywhere.com";
+export const bashUrl = "http://34.101.154.14:8175/hackathon";
 
 // Bisa ditambah params kalo butuh get request dengan params
 // source: https://axios-http.com/docs/req_config
 export function client(url, { method, data }, config, params) {
-  // console.log({ ...config, ...authHeader() });
+  console.log({ ...config, ...authHeader() });
   return axios({
     method: method,
     url: `${bashUrl}${url}`,
