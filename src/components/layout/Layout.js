@@ -3,6 +3,8 @@ import { Box, Container } from "@mui/material";
 import { connect } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 
 const Layout = ({ children, auth }) => {
   const push = useNavigate();
@@ -31,11 +33,9 @@ const Layout = ({ children, auth }) => {
         <Box sx={{ minHeight: "90vh", backgroundColor: "#FFFFFF" }}>
           {children}
         </Box>
-        {path[1] !== "on-boarding" &&
-          path[1] !== "auth" &&
-          path[1] !== "request-penjemputan" &&
-          path[1] !== "form-penjemputan" &&
-          path[1] !== "foto-sampah" && (
+        {path[1] !== "quizLanding" &&
+        path[1] !== "quiz" &&
+        path[1] !== "recommendations" && (
             <Box
               sx={{
                 position: "fixed",
@@ -54,6 +54,7 @@ const Layout = ({ children, auth }) => {
                   paddingRight: "0 !important",
                 }}
               >
+                <Footer />
               </Container>
             </Box>
           )}
